@@ -1,15 +1,16 @@
 import { BadRequestException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
+import * as fs from 'fs';
 
 export const renameFile = (req, file, callback) => {
+    
+    let fileName = '';
 
-    const fileExtName = file.originalname.split('.')[1];
-    const randomName = Array(4)
-        .fill(null)
-        .map(() => Math.round(Math.random() * 16).toString(16))
-        .join('');
-
-    callback(null, `${randomName}-${uuid()}.${fileExtName}`);
+    do {
+        fileName = generateRandomName(file.originalname);
+    } while (fs.existsSync(`./uploads/${fileName}`));
+    
+    callback(null, fileName);
   }
 
 export const destinationFile = (req, file, callback) => {
@@ -50,3 +51,13 @@ export function returnBytes(bytesConvert: string) {
     
     return numericValue * Math.pow(1024, byteTypes[unit]);
 }
+function generateRandomName(originalname: string) {
+    const fileExtName = originalname.split('.')[1];
+    const randomName = Array(4)
+        .fill(null)
+        .map(() => Math.round(Math.random() * 16).toString(16))
+        .join('');
+    
+    return `${randomName}-${uuid()}.${fileExtName}`;
+}
+

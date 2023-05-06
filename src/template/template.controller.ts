@@ -4,7 +4,7 @@ import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { destinationFile, fileFilter, renameFile } from './utils/templates.util';
+import { destinationFile, fileFilter, renameFile, returnBytes } from './utils/templates.util';
 
 @Controller('templates')
 export class TemplateController {
@@ -17,12 +17,12 @@ export class TemplateController {
       filename: renameFile
     }),
     fileFilter: fileFilter,
+    limits: { fileSize: returnBytes('1MB') }
   }))
   create(
     @Body() createTemplateDto: CreateTemplateDto,
     @UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-    return this.templateService.create(createTemplateDto);
+      return this.templateService.create(createTemplateDto);
   }
 
   @Get()

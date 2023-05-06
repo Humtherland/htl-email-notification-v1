@@ -24,3 +24,29 @@ export const  fileFilter = async (req, file, callback) => {
     
     callback(null, true);
 }
+
+export function returnBytes(bytesConvert: string) {
+    const numericValue = parseInt(bytesConvert);
+    const unit = bytesConvert.substring(numericValue.toString().length);
+    const byteTypes = {
+        'KB': 1,
+        'MB': 2,
+        'GB': 3,
+        'TB': 4,
+        'PB': 5,
+        'EB': 6,
+        'ZB': 7,
+        'YB': 8,
+        'BB': 9,
+        'NB': 10,
+        'DB': 11,
+        'CB': 12,
+        'XB': 13,
+    }
+
+    if (byteTypes[unit] === undefined) {
+        throw new Error('Invalid binary number type.');
+    }
+    
+    return numericValue * Math.pow(1024, byteTypes[unit]);
+}

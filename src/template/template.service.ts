@@ -8,7 +8,10 @@ import { postProcessing } from './utils/post-processing.util';
 export class TemplateService {
 
   create(file: Express.Multer.File) {    
-    return postProcessing(file.path);
+    postProcessing(file.path);
+    return {
+      templateId: file.filename.split('.')[0],
+    };
   }
 
   findAll() {

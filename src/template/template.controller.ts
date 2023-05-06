@@ -3,13 +3,20 @@ import { TemplateService } from './template.service';
 import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { destinationFile, renameFile } from './utils/templates.util';
 
 @Controller('templates')
 export class TemplateController {
   constructor(private readonly templateService: TemplateService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('template'))
+  @UseInterceptors(FileInterceptor('template', {
+    storage: diskStorage({
+      destination: destinationFile,
+      filename: renameFile
+    })
+  }))
   create(
     @Body() createTemplateDto: CreateTemplateDto,
     @UploadedFile() file: Express.Multer.File) {

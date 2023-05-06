@@ -6,8 +6,6 @@ import * as multer from 'multer';
 @Injectable()
 export class TemplateService {
 
-  static upload:multer.Multer = multer({ dest: 'uploads/' });
-
   create(createTemplateDto: CreateTemplateDto) {    
     return 'This action adds a new template';
   }

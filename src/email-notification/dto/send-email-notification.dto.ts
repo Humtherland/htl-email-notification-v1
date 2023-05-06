@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { TemplateParameter } from "../models/template-parameter.model";
 
 export class SendEmailNotificationDto {
 	@IsNotEmpty()
@@ -9,6 +10,9 @@ export class SendEmailNotificationDto {
 	subject: string;
 
 	@IsNotEmpty()
-	text: string;
+	templateCode: string;
+
+	@IsNotEmpty()
+	templateParameters: TemplateParameter[];
 
 }

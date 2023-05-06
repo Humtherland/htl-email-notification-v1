@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
 import * as multer from 'multer';
+import { postProcessing } from './utils/post-processing.util';
 
 @Injectable()
 export class TemplateService {
 
-  create(createTemplateDto: CreateTemplateDto) {    
-    return 'This action adds a new template';
+  create(file: Express.Multer.File) {    
+    return postProcessing(file.path);
   }
 
   findAll() {

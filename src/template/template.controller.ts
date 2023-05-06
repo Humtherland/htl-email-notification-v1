@@ -22,7 +22,7 @@ export class TemplateController {
   create(
     @Body() createTemplateDto: CreateTemplateDto,
     @UploadedFile() file: Express.Multer.File) {
-      return this.templateService.create(createTemplateDto);
+      return this.templateService.create(file);
   }
 
   @Get()

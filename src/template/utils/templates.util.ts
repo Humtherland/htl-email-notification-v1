@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 
 export const renameFile = (req, file, callback) => {
@@ -13,4 +14,13 @@ export const renameFile = (req, file, callback) => {
 
 export const destinationFile = (req, file, callback) => {
     callback(null, './uploads');
+}
+
+export const  fileFilter = async (req, file, callback) => {
+
+    if (!file.mimetype.match(/\/(html)$/)) {
+        callback(new BadRequestException('Not allowed file type.'), false);
+    }
+    
+    callback(null, true);
 }

@@ -52,7 +52,7 @@ export function returnBytes(bytesConvert: string) {
     return numericValue * Math.pow(1024, byteTypes[unit]);
 }
 function generateRandomName(originalname: string) {
-    const fileExtName = originalname.split('.')[1];
+    const fileExtName = originalname.split('.').slice(-1)[0];
     const randomName = Array(4)
         .fill(null)
         .map(() => Math.round(Math.random() * 16).toString(16))

@@ -20,10 +20,10 @@ export const destinationFile = (req, file, callback) => {
 export const  fileFilter = async (req, file, callback) => {
 
     if (!file.mimetype.match(/\/(html)$/)) {
-        callback(new BadRequestException('Not allowed file type.'), false);
+        return callback(new BadRequestException('Not allowed file type.'), false);
     }
     
-    callback(null, true);
+    return callback(null, true);
 }
 
 export function returnBytes(bytesConvert: string) {

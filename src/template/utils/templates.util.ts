@@ -18,8 +18,14 @@ export const destinationFile = (req, file, callback) => {
 }
 
 export const  fileFilter = async (req, file, callback) => {
-
-    if (!file.mimetype.match(/\/(html)$/)) {
+    let validTypes = [
+        'image/png', 
+        'image/jpg', 
+        'image/jpeg', 
+        'application/pdf'
+    ];
+    
+    if (!validTypes.includes(file.mimetype)) {
         return callback(new BadRequestException('Not allowed file type.'), false);
     }
     
